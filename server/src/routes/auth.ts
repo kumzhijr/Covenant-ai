@@ -16,5 +16,13 @@ router.get(
     }
 );
 
+router.get("/current-user", (req, res) => {
+    if (req.isAuthenticated()) {
+      res.json(req.user);
+    } else {
+      res.status(401).json({ error: "Unauthorized" });
+    }
+  });
+
 
 export default router;
