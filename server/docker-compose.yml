@@ -10,6 +10,7 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+    command: --bind_ip_all
 
 volumes:
   mongodb_data:

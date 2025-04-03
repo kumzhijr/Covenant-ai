@@ -28,18 +28,18 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // session mgt
-// app.use(session({
-//     secret: process.env.SESSION_SECRET!,
-//     resave: false,
-//     saveUninitialized: false,
-//     store: MongoStore.create({mongoUrl: process.env.MONGODB_URI!}),
-//     cookie: {
-//         secure: process.env.NODE_ENV === "production",
-//         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-//         maxAge: 24 * 60 * 60 * 1000,
-//     },
-// })
-// );
+app.use(session({
+    secret: process.env.SESSION_SECRET!,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI!}),
+    cookie: {
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 24 * 60 * 60 * 1000,
+    },
+})
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
