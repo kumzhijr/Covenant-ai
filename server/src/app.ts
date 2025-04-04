@@ -22,7 +22,11 @@ mongoose.connect(process.env.MONGODB_URI!)
 
 
 // Middleware
-app.use(cors());
+app.use(cors({
+        origin: process.env.CLIENT_URL,
+        credentials: true,
+    })
+);
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
@@ -32,7 +36,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI!}),
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI! }),
     cookie: {
         secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
@@ -49,5 +53,5 @@ app.use("/auth", authRoute);
 // Start server
 const PORT = 8080;
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+    console.log(`Server started on port ${PORT}`);
 });
