@@ -2,6 +2,7 @@ import { Document, model, Schema } from "mongoose";
 
 
 export interface IUser extends Document {
+    // isPremium: boolean;
     googleId: string;
     email: string;
     displayName: string;
@@ -13,5 +14,6 @@ const UserSchema:Schema = new Schema({
     email: { type: String, required: true, unique: true },
     displayName: { type: String, required: true,},
     profilePicture: { type: String },
+    // isPremium: { type: Boolean, default: true },
 });
 export default model<IUser>("User", UserSchema);
