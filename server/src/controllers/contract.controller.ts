@@ -3,11 +3,19 @@ import multer from "multer";
 import { IUser } from "../models/user.model";
 import "../types/express"; // Ensure the extended type is imported
 import {
+<<<<<<< HEAD
     analyzeContractWithAI,
     detectContractType,
     extractTextFromPDF,
 } from "../services/ai.services";
 import ContractAnalysisSchema, {IContractAnalysis,} from "../models/contract.model";
+=======
+    detectContractType,
+    // analyzeContractWithAI,
+    // detectContractType,
+    extractTextFromPDF,
+} from "../services/ai.services";
+>>>>>>> 672f022869b1c6d833dc64a59d0aa4926219b6d4
 import redis from "../config/redis";
 
 // upload the file to memory and filter it to only accept pdf files
@@ -52,6 +60,7 @@ export const detectAndConfirmContractType = async (
         console.error(error);
         res.status(500).json({ error: "Failed to detect contract type" });
     }
+<<<<<<< HEAD
 };
 
 export const analyzeContract = async (req: Request, res: Response) => {
@@ -100,3 +109,6 @@ export const analyzeContract = async (req: Request, res: Response) => {
       res.status(500).json({ error: "Failed to analyze contract" });
     }
   };
+=======
+};
+>>>>>>> 672f022869b1c6d833dc64a59d0aa4926219b6d4
