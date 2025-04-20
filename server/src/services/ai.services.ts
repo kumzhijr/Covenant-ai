@@ -59,7 +59,6 @@ export const detectContractType = async (
     const response = await results.response;
     let text = response.text();
     return response.text().trim();
-<<<<<<< HEAD
 };
 
 export const analyzeContractWithAI = async (
@@ -210,6 +209,4 @@ export const analyzeContractWithAI = async (
     }
 
     return fallbackAnalysis;
-=======
->>>>>>> 672f022869b1c6d833dc64a59d0aa4926219b6d4
 };

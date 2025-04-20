@@ -26,11 +26,7 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-<<<<<<< HEAD
     "pdfjs-dist": "^3.11.174",
-=======
-    "pdfjs-dist": "^5.1.91",
->>>>>>> 672f022869b1c6d833dc64a59d0aa4926219b6d4
     "prisma": "^6.4.0"
   },
   "devDependencies": {

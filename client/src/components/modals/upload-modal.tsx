@@ -222,7 +222,7 @@ export function UploadModal({
                             </div>
                             <div className="flex space-x-4">
                                 <Button onClick={handleAnalyzeContract}>
-                                    Yes, I want to analyze it
+                                    Yes, analyze
                                 </Button>
                                 <Button
                                     onClick={() => setStep("upload")}
@@ -248,7 +248,7 @@ export function UploadModal({
                             <motion.div
                                 animate={{
                                     scale: [1, 1.2, 1],
-                                    rotate: [0, 360],
+                                    // rotate: [0, 360],
                                 }}
                                 transition={{
                                     duration: 3,
@@ -264,7 +264,7 @@ export function UploadModal({
                                 transition={{ delay: 0.5 }}
                                 className="mt-6 text-lg font-semibold text-gray-700"
                             >
-                                AI is analyzing your contract...
+                                Analyzing your contract...
                             </motion.p>
                             <motion.p
                                 initial={{ opacity: 0 }}
@@ -272,7 +272,7 @@ export function UploadModal({
                                 transition={{ delay: 1 }}
                                 className="mt-2 text-sm text-gray-700"
                             >
-                                This may take some time.
+                                This may take a while...
                             </motion.p>
                             <motion.div
                                 className="w-64 h-2 bg-gray-200 rounded-full mt-6 overflow-hidden"
@@ -298,7 +298,7 @@ export function UploadModal({
                             <Alert className="mt-4">
                                 <AlertTitle>Analysis completed</AlertTitle>
                                 <AlertDescription>
-                                    Your contract has been analyzed. you can now view the results
+                                    Your contract has been analyzed successfully. You can now view the results
                                 </AlertDescription>
                             </Alert>
 
