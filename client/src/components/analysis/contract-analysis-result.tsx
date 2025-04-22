@@ -20,7 +20,7 @@ interface IContractAnalysisResultsProps {
   analysisResults: ContractAnalysis;
   isActive: boolean;
   contractId: string;
-  onUpgrade: () => void;
+  onUpgrade?: () => void;
 }
 
 export default function ContractAnalysisResults({
