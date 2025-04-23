@@ -13,8 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { motion } from "framer-motion";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Accordion, AccordionItem, AccordionTrigger } from "../ui/accordion";
-import { AccordionContent } from "@radix-ui/react-accordion";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion";
 
 interface IContractAnalysisResultsProps {
   analysisResults: ContractAnalysis;
@@ -147,7 +146,7 @@ export default function ContractAnalysisResults({
       <div className="relative">
         <div className="absolute inset-0 bg-white/50 backdrop-blur-sm z-50 flex items-center justify-center">
           <Button onClick={onUpgrade} variant={"outline"}>
-            Upgrade to Premium
+            Get Premium
           </Button>
         </div>
         <div className="opacity-50">{content}</div>
@@ -302,14 +301,14 @@ export default function ContractAnalysisResults({
               <CardContent>
                 <p>
                   Upgrade to Premium to see contract detailed analysis,
-                  including key clauses and recommendations.
+                  key clauses and recommendations.
                 </p>
                 <Button
                   variant={"outline"}
                   onClick={onUpgrade}
                   className="mt-4"
                 >
-                  Upgrade to Premium
+                  Get Premium
                 </Button>
               </CardContent>
             </Card>
