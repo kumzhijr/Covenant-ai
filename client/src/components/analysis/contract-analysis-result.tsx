@@ -30,7 +30,7 @@ export default function ContractAnalysisResults({
   const [activeTab, setActiveTab] = useState("summary");
 
   if (!analysisResults) {
-    return <div className="container mx-auto px-4 py-8">No results</div>;
+    return <div className="container mx-auto px-4 py-8">No results available.</div>;
   }
 
   const getScore = () => {
