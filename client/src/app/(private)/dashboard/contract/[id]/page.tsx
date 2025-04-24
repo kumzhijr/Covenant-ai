@@ -2,6 +2,7 @@
 
 import ContractResults from "./_components/contract-results";
 
+
 interface IContractResultsProps {
   params: { id: string };
 }

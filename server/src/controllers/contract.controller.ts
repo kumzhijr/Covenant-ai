@@ -76,7 +76,6 @@ export const analyzeContract = async (req: Request, res: Response) => {
     const pdfText = await extractTextFromPDF(fileKey);
     let analysis;
 
-    //   analysis = await analyzeContractWithAI(pdfText, "premium",contractType);
     if (user.isPremium) {
       analysis = await analyzeContractWithAI(pdfText, "premium", contractType);
     } else {

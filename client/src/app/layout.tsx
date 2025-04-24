@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { ReactQueryProvider } from "@/providers/tanstack/react-query-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ModalProvider } from "@/providers/modals/modal-providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,7 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
           <Header />
-          {children}
+          <ModalProvider>{children}</ModalProvider>
           <Toaster />
         </ReactQueryProvider>
 

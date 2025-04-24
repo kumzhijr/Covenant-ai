@@ -1,6 +1,6 @@
 "use client";
 
-import ContractAnalysisResults from "@/components/analysis/contract-analysis-results";
+import ContractAnalysisResults from "@/components/analysis/contract-analysis-result";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ContractAnalysis } from "@/interfaces/contract.interface";
 import { api } from "@/lib/api";
@@ -21,7 +21,7 @@ export default function ContractResults({ contractId }: IContractResultsProps) {
     if (user) {
       fetchAnalysisResults(contractId);
     }
-  }, [user]);
+  }, [user, contractId]);
 
   const fetchAnalysisResults = async (id: string) => {
     try {
