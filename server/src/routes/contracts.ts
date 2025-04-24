@@ -1,7 +1,12 @@
 import express from "express";
-import passport from "passport";
 import { isAuthenticated } from "../middleware/auth";
-import { analyzeContract, detectAndConfirmContractType, getUserContracts, uploadMiddleware } from "../controllers/contract.controller";
+import {
+    analyzeContract,
+    detectAndConfirmContractType,
+    getContractByID,
+    getUserContracts,
+    uploadMiddleware
+} from "../controllers/contract.controller";
 import { handleErrors } from "../middleware/errors";
 
 const router = express.Router();
@@ -24,6 +29,12 @@ router.get(
     "/user-contracts",
     isAuthenticated,
     handleErrors(getUserContracts)
-  );
+);
 
+router.get(
+    "/contract/:id",
+    isAuthenticated,
+    handleErrors(getContractByID)
+);
+  
 export default router;

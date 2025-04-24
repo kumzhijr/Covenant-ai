@@ -148,7 +148,7 @@ export const getContractByID = async (req: Request, res: Response) => {
     }
 
     //Cache the results for future requests
-    await redis.set(`contract:${id}`, contract, { ex: 3600 }); // 1 hour
+    await redis.set(`contract:${id}`, contract, { ex: 3600 });
 
     res.json(contract);
   } catch (error) {
