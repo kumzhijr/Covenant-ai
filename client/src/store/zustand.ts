@@ -1,7 +1,9 @@
 import { create } from "zustand";
 
 interface ContractStore {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     analysisResults: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setAnalysisResults: (results: any) => void;
 }
 
