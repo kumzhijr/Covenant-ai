@@ -51,6 +51,7 @@ export default function UserContracts() {
     queryKey: ["user-contracts"],
     queryFn: () => fetchUserContracts(),
   });
+  
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -68,18 +69,14 @@ export default function UserContracts() {
   const columns: ColumnDef<ContractAnalysis>[] = [
     {
       accessorKey: "_id",
-      header: ({ column }) => {
-        return <Button variant={"ghost"}>Contract ID</Button>;
-      },
+      header: "Contract ID",
       cell: ({ row }) => (
         <div className="font-medium">{row.getValue<string>("_id")}</div>
       ),
     },
     {
       accessorKey: "overallScore",
-      header: ({ column }) => {
-        return <Button variant={"ghost"}>Overall Score</Button>;
-      },
+      header: "Overall Score",
       cell: ({ row }) => {
         const score = parseFloat(row.getValue("overallScore"));
         return (
