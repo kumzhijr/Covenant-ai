@@ -10,6 +10,7 @@ import {
 import ContractAnalysisSchema, { IContractAnalysis, } from "../models/contract.model";
 import redis from "../config/redis";
 import mongoose, { FilterQuery } from "mongoose";
+import { isValidMongoId } from "../utils/mongoUtils";
 
 // upload the file to memory and filter it to only accept pdf files
 const upload = multer({
@@ -119,5 +120,39 @@ export const getUserContracts = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Failed to get contracts" });
+  }
+};
+
+export const getContractByID = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const user = req.user as IUser;
+
+  if (!isValidMongoId(id)) {
+    return res.status(400).json({ error: "Invalid contract ID" });
+  }
+
+  try {
+    const cachedContracts = await redis.get(`contract:${id}`);
+    if (cachedContracts) {
+      return res.json(cachedContracts);
+    }
+
+    //if not in cache, get from db
+    const contract = await ContractAnalysisSchema.findOne({
+      _id: id,
+      userId: user._id,
+    });
+
+    if (!contract) {
+      return res.status(404).json({ error: "Contract not found" });
+    }
+
+    //Cache the results for future requests
+    await redis.set(`contract:${id}`, contract, { ex: 3600 }); // 1 hour
+
+    res.json(contract);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to get contract" });
   }
 };

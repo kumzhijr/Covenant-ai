@@ -76,7 +76,9 @@ export default function UserContracts() {
     },
     {
       accessorKey: "overallScore",
-      header: "Overall Score",
+      header: ({ column }) => {
+        return <Button variant={"ghost"}>Overall Score</Button>
+      },
       cell: ({ row }) => {
         const score = parseFloat(row.getValue("overallScore"));
         return (
@@ -132,7 +134,7 @@ export default function UserContracts() {
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle>
-                      Are you absolutely sure?
+                      Are you sure?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                       This action cannot be undone. This will permanently delete
@@ -141,7 +143,7 @@ export default function UserContracts() {
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Continue</AlertDialogAction>
+                    <AlertDialogAction>Proceed</AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
