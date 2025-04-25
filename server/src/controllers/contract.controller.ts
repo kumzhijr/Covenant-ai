@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import multer from "multer";
 import { IUser } from "../models/user.model";
-import "../types/express"; // Ensure the extended type is imported
 import {
   analyzeContractWithAI,
   detectContractType,

@@ -1,7 +1,27 @@
-// import Image from "next/image";
+"use client";
+
+import { HeroSection } from "@/components/hero-section";
+import { PricingSection } from "@/components/pricing-section";
+import { api } from "@/lib/api";
+import stripePromise from "@/lib/stripe";
 
 export default function Home() {
+  const handleUpgrade = async () => {
+    try {
+      const response = await api.get("/payments/create-checkout-session");
+      const stripe = await stripePromise;
+      await stripe?.redirectToCheckout({
+        sessionId: response.data.sessionId,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <h1>Hello World</h1>
+    <>
+      <HeroSection />
+      <PricingSection />
+    </>
   );
 }

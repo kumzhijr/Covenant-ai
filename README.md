@@ -119,6 +119,80 @@ To set up the frontend components and dependencies:
    - Open [http://localhost:3000](http://localhost:3000) and ensure all components are working as expected.
    - Test the Stripe payment flow to confirm integration.
 
+## Database Structure
+The project uses MongoDB as its database. Below is an overview of the key collections and their structures:
+
+### Users Collection
+```json
+{
+  "_id": "ObjectId",
+  "name": "string",
+  "email": "string",
+  "password": "string",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **_id**: Unique identifier for the user.
+- **name**: Full name of the user.
+- **email**: Email address of the user.
+- **password**: Hashed password for authentication.
+- **createdAt**: Timestamp when the user was created.
+- **updatedAt**: Timestamp when the user was last updated.
+
+### Contracts Collection
+```json
+{
+  "_id": "ObjectId",
+  "userId": "ObjectId",
+  "title": "string",
+  "content": "string",
+  "analysisResults": "object",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **_id**: Unique identifier for the contract.
+- **userId**: Reference to the user who uploaded the contract.
+- **title**: Title of the contract.
+- **content**: Full text of the contract.
+- **analysisResults**: AI-generated analysis results for the contract.
+- **createdAt**: Timestamp when the contract was created.
+- **updatedAt**: Timestamp when the contract was last updated.
+
+## Email Controllers
+The project includes email functionality to send notifications and updates to users. Below is an overview of the email controller:
+
+### Email Service
+The `email.service.ts` file in the `server/src/services/` directory handles email-related operations. It uses a third-party email service (e.g., SendGrid or Nodemailer) to send emails.
+
+#### Example Usage
+```typescript
+import { sendEmail } from "../services/email.service";
+
+sendEmail({
+  to: "user@example.com",
+  subject: "Welcome to Covenant AI",
+  text: "Thank you for signing up!",
+});
+```
+
+#### Key Features
+- Sends transactional emails (e.g., password resets, notifications).
+- Configurable email templates.
+- Supports multiple email providers.
+
+### Environment Variables
+Ensure the following environment variables are set in `.env`:
+```env
+EMAIL_SERVICE_API_KEY=your-api-key
+EMAIL_FROM_ADDRESS=no-reply@covenant-ai.com
+```
+
+## Additional Notes
+- The MongoDB collections are indexed for efficient querying.
+- Email templates are stored in the `server/src/templates/` directory for easy customization.
+
 ## Contributing
 Contributions are welcome! Please follow the guidelines below:
 - Fork the repository.

@@ -1,6 +1,7 @@
 import {
     Dialog,
     DialogContent,
+    DialogTitle,
     // DialogDescription,
     // DialogHeader,
     // DialogTitle,
@@ -319,7 +320,10 @@ export function UploadModal({
 
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>
-            <DialogContent>{renderContent()}</DialogContent>
+            <DialogContent>
+            <DialogTitle>Upload your Document</DialogTitle>
+                {renderContent()}
+            </DialogContent>
         </Dialog>
     );
 }

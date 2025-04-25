@@ -14,6 +14,8 @@ import "./config/passport";
 // routes
 import authRoute from "./routes/auth";
 import contractsRoute from "./routes/contracts";
+import paymentsRoute from "./routes/payments";
+import { handleWebhook } from "./controllers/payment.controller";
 
 const app = express();
 
@@ -24,12 +26,19 @@ mongoose.connect(process.env.MONGODB_URI!)
 
 // Middleware
 app.use(cors({
-        origin: process.env.CLIENT_URL,
-        credentials: true,
-    })
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+})
 );
 app.use(helmet());
 app.use(morgan("dev"));
+
+app.post(
+    "/payments/webhook",
+    express.raw({ type: "application/json" }),
+    handleWebhook
+);
+
 app.use(express.json());
 
 // session mgt
