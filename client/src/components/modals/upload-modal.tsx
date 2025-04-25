@@ -13,7 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AnimatePresence, motion } from "framer-motion";
-import { Brain, FileText, Loader2, Sparkles, Trash } from "lucide-react";
+import { FileText, Loader2, Sparkles, Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
@@ -216,7 +216,7 @@ export function UploadModal({
                         <motion.div>
                             <div className="flex flex-col space-y-4 mb-4">
                                 <p>
-                                    We have detected the following contract type:
+                                    Contract Type:
                                     <span className="font-semibold"> {detectedType}</span>
                                 </p>
                                 <p>Would you like to analyze this contract with our AI?</p>
@@ -257,7 +257,7 @@ export function UploadModal({
                                     ease: "easeInOut",
                                 }}
                             >
-                                <Brain className="size-20 text-primary" />
+                                <Loader2 className="size-20 text-primary" />
                             </motion.div>
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}

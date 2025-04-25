@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import redis from "../config/redis";
 import { getDocument } from "pdfjs-dist";
 
-const AI_MODEL = "gemini-pro";
+const AI_MODEL = "gemini-2.0-flash";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const aiModel = genAI.getGenerativeModel({ model: AI_MODEL });
 
@@ -55,7 +55,10 @@ export const detectContractType = async (
     ${contractText.substring(0, 2000)}
   `;
 
-    const results = await aiModel.generateContent(prompt);
+    const results = await aiModel.generateContent(prompt).catch(error => {
+        console.error("Gemini API Error:", error);
+        throw new Error(`Gemini API failed: ${error.message}`);
+    });
     const response = await results.response;
     let text = response.text();
     return response.text().trim();
@@ -129,7 +132,10 @@ export const analyzeContractWithAI = async (
       ${contractText}
       `;
 
-    const results = await aiModel.generateContent(prompt);
+    const results = await aiModel.generateContent(prompt).catch(error => {
+        console.error("Gemini API Error:", error);
+        throw new Error(`Gemini API failed: ${error.message}`);
+    });
     const response = await results.response;
     let text = response.text();
 
