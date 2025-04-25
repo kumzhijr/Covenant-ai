@@ -28,7 +28,10 @@ export default function Settings() {
   console.log(subscriptionStatus);
 
   if (!subscriptionStatus) {
-    return null;
+    return <p className="text-sm text-muted-foreground">
+    Your account is managed through Google. If you want to change your
+    email, please contact us.
+  </p>;
   }
 
   const isActive = subscriptionStatus.status === "active";

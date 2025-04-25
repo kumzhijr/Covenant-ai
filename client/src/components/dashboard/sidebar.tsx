@@ -28,16 +28,16 @@ const SidebarContent = () => {
       label: "Dashboard",
       href: "/dashboard",
     },
-    {
-      icon: FileText,
-      label: "Results",
-      href: "/dashboard/results",
-    },
-    {
-      icon: Settings,
-      label: "Settings",
-      href: "/dashboard/settings",
-    },
+    // {
+    //   icon: FileText,
+    //   label: "Results",
+    //   href: "/dashboard/results",
+    // },
+    // {
+    //   icon: Settings,
+    //   label: "Settings",
+    //   href: "/dashboard/settings",
+    // },
   ];
 
   return (
