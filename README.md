@@ -1,37 +1,84 @@
 # Covenant AI
 
-Covenant AI is a Next.js-based project designed to provide advanced contract analysis and management features. This documentation provides an overview of the project, its structure, and how to get started.
+Covenant AI is a full-stack platform designed to provide advanced contract analysis and management features, leveraging AI for insights and automation. This documentation provides an overview of the project, its structure, and how to get started.
 
 ## Project Overview
-Covenant AI is a web application that leverages AI to analyze contracts and provide insights. It includes features such as user authentication, contract uploads, and detailed analysis results.
-
-## Folder Structure
-```
-client/
-  src/
-    app/          # Application pages and layouts
-    components/   # Reusable UI components
-    hooks/        # Custom React hooks
-    interfaces/   # TypeScript interfaces
-    lib/          # Utility functions and API handlers
-    providers/    # Context and state providers
-    store/        # Zustand store for state management
-server/
-  src/
-    config/       # Configuration files (e.g., Redis, Passport)
-    controllers/  # API controllers
-    middleware/   # Express middleware
-    models/       # Mongoose models
-    routes/       # API routes
-    services/     # Business logic and services
-    utils/        # Utility functions
-```
+Covenant AI is a web application that integrates AI to analyze contracts, classify them, and provide risk and opportunity assessments. It includes features such as user authentication, contract uploads, payment processing, and detailed analysis results.
 
 ## Key Features
-- AI-powered contract analysis
-- User authentication and authorization
-- Interactive dashboards
-- Zustand for state management
+### Dashboard System
+- Protected layout with sidebar navigation.
+- Contract management table with sorting and pagination.
+- File upload modal with PDF analysis workflow.
+- Risk scoring and contract type classification.
+
+### AI Integration
+- PDF text extraction and contract type detection.
+- Risk and opportunity analysis with severity levels.
+- Multi-step analysis process with progress indicators.
+- Caching system using Redis for large files.
+
+### Authentication System
+- Google OAuth integration.
+- Session management with JWT.
+- Role-based access control (Free/Premium tiers).
+- User profile management.
+
+### Payment System
+- Stripe integration for subscriptions.
+- Tiered feature system based on subscription status.
+- Session management for payment flows.
+
+## Technology Stack
+### Frontend
+- **Next.js 14** (App Router).
+- **React Query** and **Zustand** for state management.
+- **Shadcn UI** component library.
+- **TanStack Table** for data grids.
+- **Recharts** for data visualization.
+
+### Backend
+- **Express.js** and **Passport.js**.
+- **MongoDB** with **Mongoose ODM**.
+- **Redis** for caching.
+- **Stripe API** integration.
+- Custom AI analysis services.
+
+## Project Structure
+```
+client/           # Next.js frontend
+├─ components/    # Reusable UI components
+├─ hooks/         # Custom React hooks
+├─ lib/           # API/client configuration
+├─ store/         # Zustand state management
+└─ providers/     # React context providers
+
+server/           # Node.js backend
+├─ controllers/   # API route handlers 
+├─ models/        # MongoDB schemas
+├─ services/      # Business logic
+├─ config/        # Third-party integrations
+└─ routes/        # API endpoints
+```
+
+## AI Processing Flow
+1. **File Upload**: Files are temporarily stored in Redis.
+2. **PDF Text Extraction**: Extracts text and detects contract type.
+3. **Multi-Stage Analysis**:
+   ```mermaid
+graph TD
+  A[Risk Analysis] --> B[Opportunity Detection]
+  B --> C[Legal Compliance Check]
+  C --> D[Compensation Analysis]
+  D --> E[Final Scoring]
+   ```
+4. **Results Caching**: Results are cached in Redis and stored in MongoDB.
+
+## Deployment
+- Containerized with Docker.
+- Statically generated frontend pages (SSR/ISR).
+- Redis-backed session storage.
+- Horizontal scaling capabilities.
 
 ## Setup Instructions
 1. Clone the repository:
@@ -56,68 +103,6 @@ server/
 ## Usage Instructions
 - Open [http://localhost:3000](http://localhost:3000) to access the client application.
 - Use the dashboard to upload contracts and view analysis results.
-
-## State Management
-The project uses Zustand for state management. Below is an example of the Zustand store:
-
-```typescript
-import { create } from "zustand";
-
-interface ContractStore {
-    analysisResults: any;
-    setAnalysisResults: (results: any) => void;
-}
-
-const useContractStore = create<ContractStore>((set) => ({
-    analysisResults: undefined,
-    setAnalysisResults: (results) => set({ analysisResults: results }),
-}));
-
-export { useContractStore };
-```
-
-## Additional Features and Integrations
-
-### Stripe Integration
-The project integrates Stripe for payment processing. This allows users to make secure payments for premium features or services. The backend handles the payment logic, while the frontend provides a seamless user experience.
-
-### ShadCN UI
-The frontend leverages [ShadCN UI](https://shadcn.dev/) for building reusable and accessible UI components. This ensures a consistent design language and improves development efficiency.
-
-## Installation Steps for Frontend Components
-
-To set up the frontend components and dependencies:
-
-1. **Install Dependencies**:
-   Ensure you have all required dependencies installed by running:
-   ```bash
-   npm install
-   ```
-
-2. **Set Up Stripe**:
-   - Add your Stripe API keys to the environment variables in `.env.local`:
-     ```env
-     STRIPE_PUBLIC_KEY=your-public-key
-     STRIPE_SECRET_KEY=your-secret-key
-     ```
-   - Ensure the backend is configured to handle Stripe webhooks.
-
-3. **Install ShadCN UI Components**:
-   - Install the required ShadCN UI components:
-     ```bash
-     npm install @shadcn/ui
-     ```
-   - Import and use the components in your application as needed.
-
-4. **Run the Development Server**:
-   Start the client application:
-   ```bash
-   npm run dev
-   ```
-
-5. **Verify Setup**:
-   - Open [http://localhost:3000](http://localhost:3000) and ensure all components are working as expected.
-   - Test the Stripe payment flow to confirm integration.
 
 ## Database Structure
 The project uses MongoDB as its database. Below is an overview of the key collections and their structures:
@@ -188,10 +173,6 @@ Ensure the following environment variables are set in `.env`:
 EMAIL_SERVICE_API_KEY=your-api-key
 EMAIL_FROM_ADDRESS=no-reply@covenant-ai.com
 ```
-
-## Additional Notes
-- The MongoDB collections are indexed for efficient querying.
-- Email templates are stored in the `server/src/templates/` directory for easy customization.
 
 ## Contributing
 Contributions are welcome! Please follow the guidelines below:
