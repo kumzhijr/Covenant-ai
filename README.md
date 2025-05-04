@@ -1,184 +1,183 @@
-# Covenant AI
+# Covenant AI Platform
 
-Covenant AI is a full-stack platform designed to provide advanced contract analysis and management features, leveraging AI for insights and automation. This documentation provides an overview of the project, its structure, and how to get started.
+![Covenant AI Architecture Diagram](https://via.placeholder.com/800x400.png?text=AI+Contract+Analysis+Architecture)
 
-## Project Overview
-Covenant AI is a web application that integrates AI to analyze contracts, classify them, and provide risk and opportunity assessments. It includes features such as user authentication, contract uploads, payment processing, and detailed analysis results.
+A full-stack contract analysis platform leveraging AI for legal document processing, risk assessment, and opportunity identification.
 
 ## Key Features
-### Dashboard System
-- Protected layout with sidebar navigation.
-- Contract management table with sorting and pagination.
-- File upload modal with PDF analysis workflow.
-- Risk scoring and contract type classification.
-
-### AI Integration
-- PDF text extraction and contract type detection.
-- Risk and opportunity analysis with severity levels.
-- Multi-step analysis process with progress indicators.
-- Caching system using Redis for large files.
-
-### Authentication System
-- Google OAuth integration.
-- Session management with JWT.
-- Role-based access control (Free/Premium tiers).
-- User profile management.
-
-### Payment System
-- Stripe integration for subscriptions.
-- Tiered feature system based on subscription status.
-- Session management for payment flows.
+- **AI-Powered Analysis** - Multi-stage processing of PDF contracts
+- **Risk Assessment** - Severity-graded risk detection
+- **Opportunity Identification** - Impact-rated opportunity discovery
+- **User Management** - OAuth authentication with role-based access
+- **Payment Integration** - Stripe subscription management
+- **Real-time Dashboard** - Interactive results visualization
 
 ## Technology Stack
+
 ### Frontend
-- **Next.js 14** (App Router).
-- **React Query** and **Zustand** for state management.
-- **Shadcn UI** component library.
-- **TanStack Table** for data grids.
-- **Recharts** for data visualization.
+| Component        | Technology           |
+|------------------|----------------------|
+| Framework        | Next.js 14 (App Router) |
+| State Management | React Query + Zustand |
+| UI Library       | Shadcn UI            |
+| Charts           | Recharts             |
+| Tables           | TanStack Table       |
 
 ### Backend
-- **Express.js** and **Passport.js**.
-- **MongoDB** with **Mongoose ODM**.
-- **Redis** for caching.
-- **Stripe API** integration.
-- Custom AI analysis services.
+| Component        | Technology           |
+|------------------|----------------------|
+| Runtime          | Node.js 20           |
+| Framework        | Express              |
+| Database         | MongoDB Atlas        |
+| Cache            | Redis                |
+| Auth             | Passport.js + JWT    |
+| Payments         | Stripe API           |
 
-## Project Structure
+## Installation
+
+### Prerequisites
+- Node.js 20+
+- MongoDB 7+
+- Redis 7+
+- Stripe Account
+- Google OAuth Credentials
+
+```bash
+# Clone repository
+git clone https://github.com/your-org/covenant-ai.git
+cd covenant-ai
 ```
-client/           # Next.js frontend
-├─ components/    # Reusable UI components
-├─ hooks/         # Custom React hooks
-├─ lib/           # API/client configuration
-├─ store/         # Zustand state management
-└─ providers/     # React context providers
 
-server/           # Node.js backend
-├─ controllers/   # API route handlers 
-├─ models/        # MongoDB schemas
-├─ services/      # Business logic
-├─ config/        # Third-party integrations
-└─ routes/        # API endpoints
+### Client Setup
+```bash
+cd client
+npm install
+
+# Environment variables (create .env)
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_key
 ```
 
-## AI Processing Flow
-1. **File Upload**: Files are temporarily stored in Redis.
-2. **PDF Text Extraction**: Extracts text and detects contract type.
-3. **Multi-Stage Analysis**:
-   ```mermaid
-graph TD
-  A[Risk Analysis] --> B[Opportunity Detection]
-  B --> C[Legal Compliance Check]
-  C --> D[Compensation Analysis]
-  D --> E[Final Scoring]
-   ```
-4. **Results Caching**: Results are cached in Redis and stored in MongoDB.
+### Server Setup
+```bash
+cd server
+npm install
 
-## Deployment
-- Containerized with Docker.
-- Statically generated frontend pages (SSR/ISR).
-- Redis-backed session storage.
-- Horizontal scaling capabilities.
-
-## Setup Instructions
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```
-2. Navigate to the `client` and `server` directories and install dependencies:
-   ```bash
-   cd client && npm install
-   cd ../server && npm install
-   ```
-3. Start the development servers:
-   - Client:
-     ```bash
-     npm run dev
-     ```
-   - Server:
-     ```bash
-     npm run start
-     ```
-
-## Usage Instructions
-- Open [http://localhost:3000](http://localhost:3000) to access the client application.
-- Use the dashboard to upload contracts and view analysis results.
+# Environment variables (create .env)
+MONGO_URI=mongodb://localhost:27017/covenantai
+REDIS_URL=redis://localhost:6379
+STRIPE_SECRET_KEY=your_stripe_secret
+GOOGLE_CLIENT_ID=your_google_id
+GOOGLE_CLIENT_SECRET=your_google_secret
+JWT_SECRET=your_jwt_secret
+```
 
 ## Database Structure
-The project uses MongoDB as its database. Below is an overview of the key collections and their structures:
 
-### Users Collection
-```json
-{
-  "_id": "ObjectId",
-  "name": "string",
-  "email": "string",
-  "password": "string",
-  "createdAt": "Date",
-  "updatedAt": "Date"
-}
-```
-- **_id**: Unique identifier for the user.
-- **name**: Full name of the user.
-- **email**: Email address of the user.
-- **password**: Hashed password for authentication.
-- **createdAt**: Timestamp when the user was created.
-- **updatedAt**: Timestamp when the user was last updated.
-
-### Contracts Collection
-```json
-{
-  "_id": "ObjectId",
-  "userId": "ObjectId",
-  "title": "string",
-  "content": "string",
-  "analysisResults": "object",
-  "createdAt": "Date",
-  "updatedAt": "Date"
-}
-```
-- **_id**: Unique identifier for the contract.
-- **userId**: Reference to the user who uploaded the contract.
-- **title**: Title of the contract.
-- **content**: Full text of the contract.
-- **analysisResults**: AI-generated analysis results for the contract.
-- **createdAt**: Timestamp when the contract was created.
-- **updatedAt**: Timestamp when the contract was last updated.
-
-## Email Controllers
-The project includes email functionality to send notifications and updates to users. Below is an overview of the email controller:
-
-### Email Service
-The `email.service.ts` file in the `server/src/services/` directory handles email-related operations. It uses a third-party email service (e.g., SendGrid or Nodemailer) to send emails.
-
-#### Example Usage
-```typescript
-import { sendEmail } from "../services/email.service";
-
-sendEmail({
-  to: "user@example.com",
-  subject: "Welcome to Covenant AI",
-  text: "Thank you for signing up!",
-});
+### Contract Analysis Schema
+```mermaid
+erDiagram
+    CONTRACT_ANALYSIS {
+        ObjectId _id
+        ObjectId userId
+        string contractText
+        IRisk[] risks
+        IOpportunity[] opportunities
+        string summary
+        string[] recommendations
+        number overallScore
+        date createdAt
+        string aiModel
+        string contractType
+    }
+    
+    RISK {
+        string risk
+        string explanation
+        string severity
+    }
+    
+    OPPORTUNITY {
+        string opportunity
+        string explanation
+        string impact
+    }
 ```
 
-#### Key Features
-- Sends transactional emails (e.g., password resets, notifications).
-- Configurable email templates.
-- Supports multiple email providers.
+## AI Processing Workflow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant AI
+    participant Redis
+    participant MongoDB
+    
+    User->>Frontend: Upload PDF Contract
+    Frontend->>Backend: POST /api/analyze
+    Backend->>Redis: Store raw PDF (temp)
+    Backend->>AI: Extract text/type
+    AI-->>Backend: Metadata
+    Backend->>AI: Analyze risks
+    AI-->>Backend: Risk report
+    Backend->>AI: Detect opportunities
+    AI-->>Backend: Opportunity report
+    Backend->>MongoDB: Persist analysis
+    Backend-->>Frontend: Analysis results
+    Frontend-->>User: Display dashboard
+```
+
+## Running the Application
+
+```bash
+# Start both services (from root directory)
+concurrently "cd client && npm run dev" "cd server && npm run start"
+
+# Access interfaces
+Frontend: http://localhost:3000
+Backend: http://localhost:5000
+API Docs: http://localhost:5000/api-docs
+```
+
+## Configuration Guide
+
+### Required Services
+1. **MongoDB** - Document storage
+2. **Redis** - PDF text caching
+3. **Stripe** - Payment processing
+4. **Google OAuth** - User authentication
 
 ### Environment Variables
-Ensure the following environment variables are set in `.env`:
-```env
-EMAIL_SERVICE_API_KEY=your-api-key
-EMAIL_FROM_ADDRESS=no-reply@covenant-ai.com
+`.env.example` for client:
+```ini
+NEXT_PUBLIC_API_URL="http://localhost:5000"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_..."
+NEXT_PUBLIC_GOOGLE_CLIENT_ID="..."
 ```
 
-## Contributing
-Contributions are welcome! Please follow the guidelines below:
-- Fork the repository.
-- Create a new branch for your feature or bug fix.
-- Submit a pull request with a detailed description of your changes.
+`.env.example` for server:
+```ini
+MONGO_URI="mongodb://localhost:27017/covenantai"
+REDIS_URL="redis://localhost:6379"
+STRIPE_SECRET_KEY="sk_test_..."
+JWT_SECRET="your_jwt_secret_here"
+```
+
+## Development Scripts
+
+```bash
+# Client
+npm run dev        # Start development server
+npm run build      # Create production build
+npm run lint       # Run ESLint
+
+# Server 
+npm run start      # Start production server
+npm run dev        # Start with nodemon
+npm run test       # Run integration tests
+```
 
 ## License
-This project is licensed under the MIT License.
+MIT License - See [LICENSE](LICENSE) for details
